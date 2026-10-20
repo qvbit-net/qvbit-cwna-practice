@@ -82,7 +82,15 @@ button{border:0;border-radius:9px;padding:13px 14px;font-weight:800;font-size:15
 </div>
 
 <script>
-const STORAGE_KEY='cwna109-practice-answers-v1';
+const STORAGE_KEY='cwna109-practice-answers-v2';
+// Fisher-Yates shuffle: a fresh question order each time the page loads.
+function shuffleQuestions(items){
+ for(let i=items.length-1;i>0;i--){
+  const j=Math.floor(Math.random()*(i+1));
+  [items[i],items[j]]=[items[j],items[i]];
+ }
+ return items;
+}
 function loadSavedAnswers(){
  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}') || {}; }
  catch(e) { return {}; }
@@ -90,7 +98,7 @@ function loadSavedAnswers(){
 function saveAnswers(){
  const saved={};
  questions.forEach((q,qi)=>{
-  saved[qi]=[...document.querySelectorAll(`input[name="q${qi}"]:checked`)].map(x=>x.value);
+  saved[q.number]=[...document.querySelectorAll(`input[name="q${q.number}"]:checked`)].map(x=>x.value);
  });
  try { localStorage.setItem(STORAGE_KEY,JSON.stringify(saved)); } catch(e) {}
  updateProgress();
@@ -109,7 +117,7 @@ function renderQuiz(){
    `<div class="qnum">Question ${q.number}${multi?' — Choose '+q.answer.length:''}</div>`+
    `<div class="qtext">${esc(q.question)}</div>`+
    q.options.map(o=>`<label class="option" data-letter="${o.letter}">
-   <input type="${multi?'checkbox':'radio'}" name="q${qi}" value="${o.letter}" onchange="saveAnswers()">
+   <input type="${multi?'checkbox':'radio'}" name="q${q.number}" value="${o.letter}" onchange="saveAnswers()">
    <span class="letter">${o.letter}.</span><span>${esc(o.text)}</span></label>`).join('')+
    `<div class="answer-box">
    <button class="show-answer" type="button" onclick="showAnswer(${qi})">Show Answer</button>
@@ -119,8 +127,8 @@ function renderQuiz(){
  });
  const saved=loadSavedAnswers();
  questions.forEach((q,qi)=>{
-  (saved[qi]||[]).forEach(letter=>{
-   const input=document.querySelector(`input[name="q${qi}"][value="${letter}"]`);
+  (saved[q.number]||[]).forEach(letter=>{
+   const input=document.querySelector(`input[name="q${q.number}"][value="${letter}"]`);
    if(input) input.checked=true;
   });
  });
@@ -133,7 +141,7 @@ function showAnswer(qi){
 function updateProgress(){
  let answered=0;
  questions.forEach((q,qi)=>{
-  if(document.querySelectorAll(`input[name="q${qi}"]:checked`).length) answered++;
+  if(document.querySelectorAll(`input[name="q${q.number}"]:checked`).length) answered++;
  });
  document.getElementById('bar').style.width=(answered/questions.length*100)+'%';
 }
@@ -141,7 +149,7 @@ function submitTest(){
  let correct=0,answered=0;
  questions.forEach((q,qi)=>{
   const card=document.querySelector(`[data-q="${qi}"]`);
-  const selected=[...document.querySelectorAll(`input[name="q${qi}"]:checked`)].map(x=>x.value).sort();
+  const selected=[...document.querySelectorAll(`input[name="q${q.number}"]:checked`)].map(x=>x.value).sort();
   const expected=[...q.answer].sort();
   if(selected.length) answered++;
   const ok=selected.length===expected.length && selected.every((v,i)=>v===expected[i]);
@@ -166,6 +174,7 @@ function resetTest(){
  renderQuiz();
  window.scrollTo({top:0,behavior:'smooth'});
 }
+shuffleQuestions(questions);
 renderQuiz();
 </script>
 </body>
