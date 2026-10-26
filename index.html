@@ -170,10 +170,10 @@ function resetTest(){
  if(!confirm('Reset all selected answers? This will clear the answers saved on this device.')) return;
  try { localStorage.removeItem(STORAGE_KEY); } catch(e) {}
  document.getElementById('result').style.display='none';
+ shuffleQuestions(questions);
  renderQuiz();
  window.scrollTo({top:0,behavior:'smooth'});
 }
-shuffleQuestions(questions);
 renderQuiz();
 </script>
 </body>
