@@ -146,6 +146,7 @@ function updateProgress(){
 }
 function submitTest(){
  let correct=0,answered=0;
+ const incorrectCards=[],correctCards=[];
  questions.forEach((q,qi)=>{
   const card=document.querySelector(`[data-q="${qi}"]`);
   const selected=[...document.querySelectorAll(`input[name="q${q.number}"]:checked`)].map(x=>x.value).sort();
@@ -159,10 +160,14 @@ function submitTest(){
    if(selected.includes(el.dataset.letter)&&!q.answer.includes(el.dataset.letter)) el.classList.add('wrong');
   });
   document.getElementById('answer-'+qi).style.display='block';
+  (ok?correctCards:incorrectCards).push(card);
  });
+ // Move missed and unanswered questions above correctly answered questions.
+ const quiz=document.getElementById('quiz');
+ [...incorrectCards,...correctCards].forEach(card=>quiz.appendChild(card));
  const pct=Math.round(correct/questions.length*100);
  document.getElementById('score').textContent=`Score: ${correct}/${questions.length} (${pct}%)`;
- document.getElementById('resultNote').textContent=`Answered: ${answered}/${questions.length}`;
+ document.getElementById('resultNote').textContent=`Answered: ${answered}/${questions.length} • ${incorrectCards.length} to review`;
  document.getElementById('result').style.display='block';
  window.scrollTo({top:0,behavior:'smooth'});
 }
