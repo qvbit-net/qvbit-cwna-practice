@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="CCNA 200-301 Practice">
+<meta name="theme-color" content="#123746">
+<title>CCNA 200-301 Practice Exam | QVB I.T.</title>
+<style>
+:root{--navy:#123746;--teal:#54c7d9;--light:#f4f7fa;--border:#d9e1e6;--green:#e8f7ec;--red:#fff0f0;--amber:#fff7df}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:var(--light);color:#17212b;-webkit-text-size-adjust:100%;padding-bottom:env(safe-area-inset-bottom)}
+header{background:var(--navy);color:#fff;padding:calc(16px + env(safe-area-inset-top)) 16px 16px;position:sticky;top:0;z-index:10;box-shadow:0 2px 10px #0003}
+.wrap{max-width:900px;margin:auto}h1{margin:0 0 5px;font-size:24px;line-height:1.2}.header-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.top-reset{background:#fff;color:var(--navy);border:1px solid #ffffff88;padding:9px 12px;min-height:40px;white-space:nowrap;font-size:14px}
+.sub{opacity:.9;font-size:14px;line-height:1.4}#progress{margin-top:12px;height:9px;background:#ffffff33;border-radius:20px;overflow:hidden}#bar{height:100%;width:0;background:var(--teal);transition:.2s}
+main{padding:16px 12px 120px}.card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:18px 16px;margin:0 auto 14px;max-width:900px;box-shadow:0 2px 8px #0000000c}
+.qnum{font-weight:800;color:#16758a;margin-bottom:8px;font-size:15px}.qtext{font-size:18px;line-height:1.48;margin-bottom:15px;font-weight:600;white-space:pre-line}
+.option{display:flex;gap:11px;align-items:flex-start;padding:15px 13px;border:1px solid #dfe6ea;border-radius:11px;margin:10px 0;cursor:pointer;min-height:52px;line-height:1.4;touch-action:manipulation}.option:active{background:#eef9fb}
+.option input{margin:3px 0 0;min-width:20px;min-height:20px;accent-color:#16758a}.letter{font-weight:800;min-width:20px}.correct{background:var(--green)!important;border-color:#4caf70!important}.wrong{background:var(--red)!important;border-color:#e06a6a!important}
+.answer-box{margin-top:15px;padding-top:13px;border-top:1px solid #e1e7ea}.show-answer{width:100%;background:#eef7f9;color:#126276;border:1px solid #b9dbe2;padding:13px 14px;border-radius:9px;font-size:15px;font-weight:800;min-height:48px;touch-action:manipulation}
+.answer-text{display:none;margin-top:10px;padding:12px;border-radius:9px;background:var(--green);border:1px solid #b7dfc2;color:#205f34;line-height:1.5;white-space:pre-wrap}.correct-answer{font-weight:800;margin-bottom:6px}.explanation{font-size:14px;font-weight:500;white-space:pre-wrap}
+.type-label{display:inline-block;font-size:12px;font-weight:800;letter-spacing:.04em;color:#76520a;background:var(--amber);border:1px solid #ecd58d;border-radius:6px;padding:5px 8px;margin-bottom:10px}
+.response-input{display:block;width:100%;min-height:94px;padding:13px;border:1px solid #cbd8de;border-radius:10px;font:inherit;font-size:15px;line-height:1.45;resize:vertical}.exhibit-note{margin:10px 0;padding:10px 12px;border-radius:9px;background:#fff8e8;border:1px solid #ead9a7;color:#6b5318;font-size:13px;line-height:1.45}
+.actions{position:sticky;top:calc(var(--header-height, 105px));z-index:9;max-width:900px;margin:0 auto 15px;display:grid;grid-template-columns:1.15fr .8fr 1.15fr;gap:8px;padding:10px 12px;background:#ffffffF2;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:12px;box-shadow:0 3px 14px #00000012}
+button{border:0;border-radius:9px;padding:13px 14px;font-weight:800;font-size:15px;min-height:48px;cursor:pointer;touch-action:manipulation}.primary{background:var(--teal);color:#07313c}.secondary{background:#fff;color:var(--navy);border:1px solid #ccd8dd}.actions button{min-width:0;padding:12px 8px;font-size:14px}
+.result{display:none;position:fixed;left:0;right:0;bottom:0;background:var(--navy);color:white;padding:12px 14px calc(12px + env(safe-area-inset-bottom));z-index:20;box-shadow:0 -2px 10px #0003}.result-inner{max-width:900px;margin:auto;display:grid;grid-template-columns:1fr auto;gap:8px 12px;align-items:center}.score{font-size:19px;font-weight:800}.resultNote{font-size:13px}.result-inner button{grid-column:2;grid-row:1/3}
+.loading,.error,.footer-note,.source-note{max-width:900px;margin:0 auto 14px;padding:14px 16px;border-radius:10px;background:#fff;border:1px solid var(--border);font-size:14px;line-height:1.5}.error{color:#8b1e1e;background:#fff5f5;border-color:#e8bcbc}.source-note{background:#fff8e8;border-color:#ead9a7;color:#6b5318}.footer-note{background:transparent;border:0;color:#65727d;text-align:center;font-size:12px}
+@media(max-width:600px){h1{font-size:20px}.header-row{gap:8px}.top-reset{font-size:13px;padding:8px 10px}.sub{font-size:13px}.qtext{font-size:17px}.card{padding:16px 13px;border-radius:12px}main{padding:12px 9px 24px}.actions{padding-left:9px;padding-right:9px;gap:6px;top:calc(105px + env(safe-area-inset-top))}.actions button{font-size:13px;padding:11px 5px}.option{font-size:16px;padding:15px 11px}}
+@media(min-width:601px){main{padding-top:22px}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+ <div class="header-row"><h1>CCNA 200-301 Practice Exam</h1><button class="top-reset" type="button" onclick="resetTest()">Reset Answers</button></div>
+ <div class="sub">1,401 questions • Answer review • Progress saves automatically on this device</div>
+ <div id="progress"><div id="bar"></div></div>
+</div></header>
+<main>
+ <div class="actions"><button class="primary" onclick="submitTest()">Submit Test</button><button class="secondary" onclick="resetTest()">Reset</button><button class="secondary" onclick="window.scrollTo({top:0,behavior:'smooth'})">Back to Top</button></div>
+ <div id="status" class="loading">Loading CCNA 200-301 question bank…</div>
+ <div id="quiz"></div>
+ <div class="source-note"><strong>Source-format note:</strong> The supplied PDF includes multiple-choice questions, drag-and-drop items, and simulations. The PDF's diagrams and visual answer areas are not embedded in this web version. Questions that refer to exhibits should be checked against the original PDF. Drag-and-drop and simulation items are presented for review but are not included in the automatic score.</div>
+ <div class="footer-note">QVB I.T. independent practice resource. Not affiliated with or endorsed by Cisco. The supplied PDF provides answer keys but does not include written explanations; concise study notes have been added to support review.</div>
+</main>
+<div class="result" id="result"><div class="result-inner"><div class="score" id="score"></div><div class="resultNote" id="resultNote"></div><button class="secondary" onclick="resetTest()">Try Again</button></div></div>
+<script>
+const STORAGE_KEY="ccna200301-practice-answers-v1";
+const DATA_URL="data/ccna-200-301-questions.json";
+const EXPECTED_QUESTIONS=1401;
+let questions=[],selected={},revealed={},submitted=false;
+function shuffleQuestions(items){const a=[...items];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function escapeHtml(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function restore(){try{const v=JSON.parse(localStorage.getItem(STORAGE_KEY)||"{}");selected=v&&v.selected?v.selected:{};revealed=v&&v.revealed?v.revealed:{};}catch(e){selected={};revealed={};}}
+function save(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify({selected,revealed}));}catch(e){}updateProgress();}
+function chosen(q){return Array.isArray(selected[q.number])?selected[q.number]:[];}
+function answered(q){if(q.type==="mcq")return chosen(q).length>0;return String(selected[q.number]||"").trim().length>0;}
+function correct(q){if(q.type!=="mcq")return false;const a=[...chosen(q)].sort(),b=[...q.answer].sort();return a.length===b.length&&a.every((v,i)=>v===b[i]);}
+function updateProgress(){const done=questions.filter(answered).length;const bar=document.getElementById("bar");if(bar)bar.style.width=(questions.length?done/questions.length*100:0)+"%";}
+function answerContent(q){let heading="Answer review";if(q.type==="mcq"){heading="Correct answer: "+q.answer.map(L=>L+". "+(q.options[L.charCodeAt(0)-65]||"")).join(" • ");}else if(q.type==="dragdrop"){heading="Drag-and-drop review";}else if(q.type==="simulation"){heading="Simulation review";}else{heading=q.answer?"Source response: "+q.answer:"Short-answer review";}
+ return '<div class="answer-text" id="answer-'+q.number+'" style="display:'+(submitted||revealed[q.number]?"block":"none")+'"><div class="correct-answer">'+escapeHtml(heading)+'</div><div class="explanation"><strong>Explanation:</strong> '+escapeHtml(q.explanation)+'</div></div>';}
+function render(){const quiz=document.getElementById("quiz");quiz.innerHTML=questions.map((q,index)=>{
+ let control="",label="";
+ if(q.type==="mcq"){
+  const multi=q.answer.length>1;control=q.options.map((op,i)=>{const L=String.fromCharCode(65+i),checked=chosen(q).includes(L),good=q.answer.includes(L);let cls="option";if(submitted&&good)cls+=" correct";if(submitted&&checked&&!good)cls+=" wrong";return '<label class="'+cls+'"><input type="'+(multi?"checkbox":"radio")+'" name="q'+q.number+'" value="'+L+'" '+(checked?"checked ":"")+(submitted?"disabled ":"")+'onchange="onChoice('+q.number+')"><span class="letter">'+L+'.</span><span>'+escapeHtml(op)+'</span></label>';}).join("");
+ }else{
+  label=q.type==="dragdrop"?"DRAG-AND-DROP ITEM":q.type==="simulation"?"PERFORMANCE-BASED SIMULATION":"SHORT-ANSWER ITEM";
+  control='<div class="type-label">'+label+'</div><textarea class="response-input" placeholder="Use this space for your answer or configuration notes…" '+(submitted?"disabled ":"")+'oninput="onText('+q.number+')">'+escapeHtml(selected[q.number]||"")+'</textarea>';
+ }
+ const exhibit=/refer to the exhibit|exhibit\b/i.test(q.question)?'<div class="exhibit-note">This question references a diagram or exhibit in the source PDF. The exhibit image is not embedded here; consult the corresponding PDF question when needed.</div>':'';
+ const btn=(submitted||revealed[q.number])?"Hide Answer & Explanation":"Show Answer & Explanation";
+ return '<section class="card" id="question-'+q.number+'"><div class="qnum">QUESTION '+q.number+' <span style="font-weight:500;color:#6b7780">('+ (index+1)+' of '+questions.length+')</span></div><div class="qtext">'+escapeHtml(q.question||"The source PDF does not contain readable question text for this item. Consult the original PDF at this question number.")+'</div>'+exhibit+control+'<div class="answer-box"><button class="show-answer" id="show-'+q.number+'" type="button" onclick="toggleAnswer('+q.number+')">'+btn+'</button>'+answerContent(q)+'</div></section>';
+ }).join("");updateProgress();}
+function onChoice(n){if(submitted)return;selected[n]=Array.from(document.querySelectorAll('input[name="q'+n+'"]:checked')).map(x=>x.value);save();}
+function onText(n){if(submitted)return;const el=document.querySelector('#question-'+n+' .response-input');selected[n]=el?el.value:"";save();}
+function toggleAnswer(n){revealed[n]=!revealed[n];const box=document.getElementById("answer-"+n),btn=document.getElementById("show-"+n);if(box)box.style.display=(revealed[n]||submitted)?"block":"none";if(btn)btn.textContent=(revealed[n]||submitted)?"Hide Answer & Explanation":"Show Answer & Explanation";save();}
+function submitTest(){if(!questions.length)return;submitted=true;const scoreable=questions.filter(q=>q.type==="mcq"),total=scoreable.length,score=scoreable.filter(correct).length,wrong=scoreable.filter(q=>answered(q)&&!correct(q)).length,unanswered=scoreable.filter(q=>!answered(q)).length,notScored=questions.length-total;
+ questions=[...questions].sort((a,b)=>{const rank=q=>q.type!=="mcq"?2:(correct(q)?1:0);return rank(a)-rank(b)||a.number-b.number;});render();document.getElementById("score").textContent="Score: "+score+" / "+total+" ("+Math.round(score/total*100)+"%)";document.getElementById("resultNote").textContent=wrong+" incorrect • "+unanswered+" unanswered • "+notScored+" PBQ/short-answer items not scored. Review items appear first.";document.getElementById("result").style.display="block";window.scrollTo({top:0,behavior:"smooth"});}
+function resetTest(){selected={};revealed={};submitted=false;try{localStorage.removeItem(STORAGE_KEY);}catch(e){}questions=shuffleQuestions(questions);document.getElementById("result").style.display="none";render();window.scrollTo({top:0,behavior:"smooth"});}
+async function load(){const status=document.getElementById("status");try{const r=await fetch(DATA_URL);if(!r.ok)throw new Error("Question data returned HTTP "+r.status);questions=await r.json();if(questions.length!==EXPECTED_QUESTIONS)throw new Error("Expected "+EXPECTED_QUESTIONS+" questions; loaded "+questions.length);restore();questions=shuffleQuestions(questions);status.remove();render();}catch(e){status.className="error";status.textContent="The CCNA question bank could not load. Refresh the page and try again. "+e.message;}}
+load();
+</script>
+</body></html>
